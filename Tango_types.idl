@@ -1,0 +1,279 @@
+
+//-------------------------------------------------------------------------
+//
+// 		Basic types to transport command data
+//
+//-------------------------------------------------------------------------
+
+typedef boolean 			DevBoolean;
+typedef double 				DevDouble;
+typedef float 				DevFloat;
+typedef long 				DevLong;
+typedef short 				DevShort;
+typedef string 				DevString;
+typedef unsigned long 			DevULong;
+typedef unsigned short 			DevUShort;
+typedef sequence<float> 		DevVarFloatArray;
+typedef sequence<double> 		DevVarDoubleArray;
+typedef sequence<short> 		DevVarShortArray;
+typedef sequence<long> 			DevVarLongArray;
+typedef sequence<octet> 		DevVarCharArray;
+typedef sequence<string> 		DevVarStringArray;
+typedef sequence<unsigned short> 	DevVarUShortArray;
+typedef sequence<unsigned long>	 	DevVarULongArray;
+
+struct DevVarLongStringArray
+{
+	DevVarLongArray 	lvalue;
+	DevVarStringArray 	svalue;
+};
+
+struct DevVarDoubleStringArray
+{
+	DevVarDoubleArray 	dvalue;
+	DevVarStringArray 	svalue;
+};
+
+
+//-------------------------------------------------------------------------
+//
+// 		Some enumerations
+//
+//-------------------------------------------------------------------------
+
+
+enum AttrQuality
+{
+	ATTR_VALID,
+	ATTR_INVALID,
+	ATTR_ALARM
+};
+
+enum AttrWriteType
+{
+	READ,
+	READ_WITH_WRITE,
+	WRITE,
+	READ_WRITE
+};
+		
+enum AttrDataFormat
+{
+	SCALAR,
+	SPECTRUM,
+	IMAGE
+};
+
+enum DevSource
+{
+	DEV,
+	CACHE,
+	CACHE_DEV
+};
+
+enum ErrSeverity
+{
+	WARN,
+	ERR,
+	PANIC
+};
+
+enum DevState
+{
+	ON,
+	OFF,
+	CLOSE,
+	OPEN,
+	INSERT,
+	EXTRACT,
+	MOVING,
+	STANDBY,
+	FAULT,
+	INIT,
+	RUNNING,
+	ALARM,
+	DISABLE,
+	UNKNOWN
+};	
+
+enum DispLevel
+{
+	OPERATOR,
+	EXPERT
+};
+
+
+//-------------------------------------------------------------------------
+//	
+//		 Some  miscellaneous structures definitions
+//
+//-------------------------------------------------------------------------	
+	
+struct TimeVal 
+{
+	long 	tv_sec;
+	long 	tv_usec;
+	long 	tv_nsec;
+};
+
+
+//-------------------------------------------------------------------------
+//	
+//		For the command query device operation 
+//
+//-------------------------------------------------------------------------
+
+
+struct DevCmdInfo
+{
+	string 	cmd_name;
+	long 	cmd_tag;
+	long 	in_type;
+	long 	out_type;
+	string	in_type_desc;
+	string 	out_type_desc;
+};
+
+struct DevCmdInfo_2
+{
+	string 		cmd_name;
+	DispLevel 	level;
+	long		cmd_tag;
+	long 		in_type;
+	long 		out_type;
+	string		in_type_desc;
+	string 		out_type_desc;
+};
+
+typedef sequence<DevCmdInfo> DevCmdInfoList;
+typedef sequence<DevCmdInfo_2> DevCmdInfoList_2;
+
+
+//-------------------------------------------------------------------------
+//
+// 		For the DevFailed exception
+//
+//-------------------------------------------------------------------------
+
+struct DevError
+{
+	string 		reason;
+	ErrSeverity 	severity;
+	string 		desc;
+	string 		origin;
+};			
+
+typedef sequence<DevError> DevErrorList;
+
+exception DevFailed
+{
+	DevErrorList errors;
+};
+
+
+//-------------------------------------------------------------------------
+//	
+//		For attribute management
+//
+//-------------------------------------------------------------------------
+
+
+struct AttributeConfig
+{
+	string			name;
+	AttrWriteType		writable;
+	AttrDataFormat		data_format;
+	long			data_type;
+	long			max_dim_x;
+	long			max_dim_y;
+	string 			description;
+	string 			label;
+	string 			unit;
+	string 			standard_unit;
+	string			display_unit;
+	string 			format;
+	string   		min_value;
+	string    		max_value;
+	string   		min_alarm;
+	string   		max_alarm;
+	string			writable_attr_name;
+	DevVarStringArray	extensions;	
+};
+
+struct AttributeConfig_2
+{
+	string			name;
+	AttrWriteType		writable;
+	AttrDataFormat		data_format;
+	long			data_type;
+	long			max_dim_x;
+	long			max_dim_y;
+	string 			description;
+	string 			label;
+	string 			unit;
+	string 			standard_unit;
+	string			display_unit;
+	string 			format;
+	string   		min_value;
+	string    		max_value;
+	string   		min_alarm;
+	string   		max_alarm;
+	string			writable_attr_name;
+	DispLevel		level;
+	DevVarStringArray	extensions;	
+};
+
+struct AttributeValue
+{
+	any 		value;
+	AttrQuality 	quality;
+	TimeVal 	time;
+	string		name;
+	long		dim_x;
+	long 		dim_y;
+};
+
+typedef sequence<AttributeConfig> AttributeConfigList;
+typedef sequence<AttributeConfig_2> AttributeConfigList_2;
+typedef sequence<AttributeValue> AttributeValueList;
+
+
+//-------------------------------------------------------------------------
+//
+//		For device interface info operation
+//
+//-------------------------------------------------------------------------
+
+struct DevInfo
+{
+	string 	dev_class;
+	string 	server_id;
+	string 	server_host;
+	long 	server_version;
+	string 	doc_url;
+};
+
+//-------------------------------------------------------------------------
+//
+//		For command and attribute history
+//
+//-------------------------------------------------------------------------
+
+struct DevCmdHistory
+{
+	TimeVal		time;
+	boolean		cmd_failed;
+	any		value;
+	DevErrorList	errors;
+};
+
+typedef sequence<DevCmdHistory> DevCmdHistoryList;
+
+struct DevAttrHistory
+{
+	boolean		attr_failed;
+	AttributeValue	value;
+	DevErrorList	errors;
+};
+
+typedef sequence<DevAttrHistory> DevAttrHistoryList;

@@ -1,0 +1,51 @@
+
+/**
+ * Local interface for grouped Attribute requests (locality constrained).
+ * GroupAttribute is a local client interface for reading and writing
+ * groups of attributes which belong to more than one Device.
+ * The reading and writing of the attributes is done
+ * via methods. 
+ * GroupAttribute optimises the request so that it is executed
+ * in the shortest possible time.
+ * GroupAttribute is a local interface which exists only in the client i.e.
+ * it is not a network addressable object.
+ **/
+ 
+interface GroupAttribute
+{
+/**
+ * list of attributes presently member of the group
+ **/
+	readonly attribute DevVarStringArray attribute_list;
+/**
+ * add a list of attributes to the group
+@param dev device to which attributes belong (is this necessary ?)
+@param attributes list of attributes to add
+ **/
+	void add (in Device dev, in DevVarStringArray attributes) raises(DevFailed);
+/**
+ * remove a list of attributes from the group
+@param dev device to which attributes belong (is this necessary ?)
+@param attributes list of attributes to remove
+ **/
+	void remove (in Device dev, in DevVarStringArray attributes) raises(DevFailed);
+/**
+ * read the configuration for all attributes member of the list 
+@return list of attribute configurations read
+ **/
+	AttributeConfigList get_attribute_config() raises(DevFailed);
+
+/**
+ * read a variable list of attributes from a device
+@return list of attribute values read
+ **/
+	AttributeValueList read_attributes() raises(DevFailed);
+
+/**
+ * write a variable list of attributes to a device
+@param list of attribute values to write
+@return nothing
+ **/
+	void write_attributes(in AttributeValueList values) raises(DevFailed);
+};
+

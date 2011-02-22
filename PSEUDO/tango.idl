@@ -1,0 +1,151 @@
+
+
+/**
+ * This is the new TACO interface defined in IDL. New TACO (or TANGO)
+ * is a total rethink of (old) TACO which was based on remote procedure
+ * calls. 
+ * TANGO is an extension of old TACO.
+ * The fundamental idea of a device as a network object which
+ * has methods and data has been retained. However 
+ * in TANGO objects will be real C++/Java objects which can be instantiated
+ * and accessed via their methods and data by the client as if they were local
+ * objects. 
+ * Certain aspects of the old DSAPI application programmer's 
+ * interface have been suppressed in order to simplify the client (e.g. import,
+ * free, data collector api). 
+ * Features which have been considered missing in old TACO have been added 
+ * e.g. signals, events and groups. 
+ * Asynchronism and groups have been foreseen right from the beginning 
+ * this time. 
+ * This interface is defined in CORBA IDL.
+ * The fundamental interface is Device. 
+ * All TANGO control objects will be of this type i.e. they will implement and
+ * offer the Device interface. 
+ * New classes of control objects e.g. PowerSupply, will be created by 
+ * wrapping the Device class appropriately. 
+ * The wrapper class will hide the calls to the Device interface from
+ * the client so that the client will only see the wrapper class.
+ * All CORBA details will be hidden from the client as far as possible.
+ * Generic clients will use the Device interface directly.
+ * In addition to Device TANGO offers the interfaces Monitor,
+ * GroupDevice and GroupSignal.
+ * These interfaces implement TANGO services for monitoring and 
+ * executing grouped accesses to device/signals.<BR><BR>
+ * Version history: <BR>
+ * 20/08/98 : 1.1 : First official release<BR>
+ * 18/08/99 : 2.0 : Separe idl and pseudo-idl<BR>
+ * 08/09/99 : 2.1 : Remove the applet attribute and the initiliase and serialise operation from the device interface<BR>
+ * 15/09/99 : 2.2 : Adapted to the ICALEPS show<BR>
+ * 06/12/99 : 2.3 : Less possible state and add strings in the DevCmdInfo struct<BR>
+ * 31/01/00 : 2.4 : Update DevVarCharArray to array of octet<BR>
+ * 10/02/00 : 2.5 : Updated all attribute related stuff<BR>
+ * 21/03/00 : 2.6 : Change arguments for the write_attributes device operation<BR>
+ * 15/09/00 : 2.7 : Change arguments for the read_attributes operation. Remove the
+ *		    CORBA field of the ErrFacility enumeration.
+ *		    Replace the WARMUP state by INIT.
+ *		    Change name of the dim_x and dim_y fields of the 
+ *		    AttributeConfig structure to max_dim_x and max_dim_y<BR>
+ * 27/09/00 : 2.8 : Change the writable field type of the AttributeConfig structure<BR>
+ * 26/10/00 : 2.9 : Change the DevError structure fields<BR>
+ * 12/02/01 : 2.10 : Change in the ErrSeverity enum. Windows does not like enum member like ERROR<BR>
+ * 14/02/01 : 2.11 : Another change in the ErrSeverity enum. WARNING is now WARN<BR>
+ * 23/03/01 : 2.12 : Add a new attribute in the Device interface called adm_name<BR>
+ * 26/10/01 : 3.0 : Add a new Device interface version using inheritance<BR>
+ * Add a new parameter to command_inout operation<BR>
+ * Add the command and attribute display level in command and attribute config structure<BR>
+ * Add a new call to get command or attribute cache history<BR>
+
+@author JM.Chaize,<BR>A.Gotz,<BR>W-D.Klotz,<BR>J.Meyer,<BR>E.Taurel
+@version 3.0
+**/ 
+
+module Tango
+{
+
+//-------------------------------------------------------------------------
+//
+//		Include all types, struct.... definition file
+//
+//-------------------------------------------------------------------------
+
+#include <Tango_types.idl>
+
+
+//-------------------------------------------------------------------------
+//
+//		Include the device interface
+//
+//-------------------------------------------------------------------------
+
+
+#include <Device.idl>
+	
+ 
+//-------------------------------------------------------------------------
+//
+//		Include the CallBack interface
+//
+//-------------------------------------------------------------------------
+
+#ifdef PSEUDO
+#include <CallBack.idl>
+#endif
+
+
+
+//-------------------------------------------------------------------------
+//
+//		Include the GroupDevice interface
+//
+//-------------------------------------------------------------------------
+
+#ifdef PSEUDO
+#include <GroupDevice.idl>
+#endif
+
+
+//-------------------------------------------------------------------------
+//
+//		Include the GroupAttribute interface
+//
+//-------------------------------------------------------------------------
+
+#ifdef PSEUDO
+#include <GroupAttribute.idl>
+#endif
+
+
+//-------------------------------------------------------------------------
+//
+//		Include the Consumer interface
+//
+//-------------------------------------------------------------------------
+
+#ifdef PSEUDO
+#include <Consumer.idl>
+#endif
+
+//-------------------------------------------------------------------------
+//
+//		Include the Monitor interface
+//
+//-------------------------------------------------------------------------
+
+
+#ifdef PSEUDO
+#include <Monitor.idl>
+#endif
+
+
+//-------------------------------------------------------------------------
+//
+//		Include the TclAutomate interface
+//
+//-------------------------------------------------------------------------
+
+#ifdef PSEUDO
+#include <TclAutomate.idl>
+#endif
+
+
+};  /* module tango */
