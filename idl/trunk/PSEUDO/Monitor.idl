@@ -1,0 +1,49 @@
+
+
+
+/**
+ * A System wide interface for monitoring devices/signals.
+ * The Monitor interface allows clients to register their interest
+ * for a one or more events related to devices/signals.
+ * Events can be one of time, value, state related or specific to
+ * the device server e.g. hardware interrupt.
+ * Clients register their interest and receive only solicited events.
+ * There can be one or more Monitor objects in a TANGO system.
+ **/
+ 
+ 
+interface Monitor
+{
+/**
+ * current time in UT
+ **/
+	attribute TimeVal time;
+/**
+ * time elapsed since epoch
+ **/
+	TimeVal time_elapsed();
+/**
+ * register client's interest in an event
+@param cons client's interest (event+device+callback)
+@return an ID to identify the consumer's registration at the producer's side.
+*/
+	unsigned long consumer_add(in Consumer cons) raises (DevFailed);
+/**
+ * unregister client's interest in an event
+@param id consumer id (returned by consumer_add())
+@return an ID to identify the consumer's registration at the producer's side.
+*/
+	void consumer_remove(in unsigned long id) raises(DevFailed);
+/**
+ * start monitor
+@return nothing
+ **/ 
+	void start();
+/**
+ * stop monitor
+@return nothing
+ **/ 
+	void stop();
+};
+
+

@@ -1,0 +1,27 @@
+
+Directory with the idl definition for tango. This directory contains the IDL 
+as it is reallyused. The PSEUDO directory contains the IDL as it was
+foreseen at the beginning of the project. The main file is
+
+		tango.idl
+	       
+The html doc for the idl is stored in
+
+               /segfs/tango/idl/idl_html
+	       
+	       
+To generate files, the command syntax is the following:
+
+1 - html doc for idl :
+
+       	hidl -I. --all --output-dir idl_html tango.idl
+	
+2 - html doc for pseudo idl (After a cd to the PSEUDO directory)
+
+       	hidl -DPSEUDO -I. --all --output-dir pidl_html tango.idl
+
+    Du to a bug (I think) in the hidl OOC compiler, I had to manually insert
+    a little html file (pseudo_text.html) which specify that it is a pseudo
+    idl file.
+
+
