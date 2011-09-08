@@ -593,6 +593,7 @@ struct ZmqCallInfo
 	long					version;
 	string					method_name;
 	DevVarCharArray			oid;
+	boolean					call_is_except;
 };
 
 //-------------------------------------------------------------------------
