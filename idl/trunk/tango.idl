@@ -467,9 +467,36 @@ struct AttributeConfig_3
 	DevVarStringArray	sys_extensions;
 };
 
+struct AttributeConfig_5
+{
+	string				name;
+	AttrWriteType		writable;
+	AttrDataFormat		data_format;
+	long				data_type;
+	boolean				memorized;
+	long				max_dim_x;
+	long				max_dim_y;
+	string 				description;
+	string 				label;
+	string 				unit;
+	string 				standard_unit;
+	string				display_unit;
+	string 				format;
+	string   			min_value;
+	string    			max_value;
+	string				writable_attr_name;
+	DispLevel			level;
+	DevVarStringArray	enum_labels;
+	AttributeAlarm		att_alarm;
+	EventProperties		event_prop;
+	DevVarStringArray	extensions;
+	DevVarStringArray	sys_extensions;
+};
+
 typedef sequence<AttributeConfig> 	AttributeConfigList;
 typedef sequence<AttributeConfig_2> AttributeConfigList_2;
 typedef sequence<AttributeConfig_3> AttributeConfigList_3;
+typedef sequence<AttributeConfig_5> AttributeConfigList_5;
 typedef sequence<AttributeValue> 	AttributeValueList;
 typedef sequence<AttributeValue_3> 	AttributeValueList_3;
 typedef sequence<AttributeValue_4>	AttributeValueList_4;
@@ -951,5 +978,29 @@ read from the polling cache buffer or from the device itself
 	raises(DevFailed,MultiDevFailed);
 };
 
+//-------------------------------------------------------------------------
+//
+//		The Device_5 interface (corresponding to Tango V9)
+//
+//-------------------------------------------------------------------------
+
+interface Device_5: Device_4
+{
+/**
+ * Read the configuration for a variable list of attributes from a device.
+ * Compared to the Device interface, the attribute configuration has one more
+ * field (The display level)
+@param name list of attribute names to read
+@return list of attribute configurations read
+ **/
+	AttributeConfigList_5 get_attribute_config_5(in DevVarStringArray names) raises(DevFailed);
+
+/**
+ * set the configuration for a variable list of attributes from the device
+@param new_conf list of attribute configuration to be set
+@return nothing
+ **/
+	void set_attribute_config_5(in AttributeConfigList_5 new_conf,in ClntIdent cl_ident) raises(DevFailed);
+};
 
 };  /* module tango */
