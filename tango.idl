@@ -126,7 +126,8 @@ enum AttrWriteType
 	READ,
 	READ_WITH_WRITE,
 	WRITE,
-	READ_WRITE
+	READ_WRITE,
+    WT_UNKNOWN
 };
 
 enum AttrDataFormat
@@ -172,7 +173,8 @@ enum DevState
 enum DispLevel
 {
 	OPERATOR,
-	EXPERT
+	EXPERT,
+	DL_UNKNOWN
 };
 
 typedef sequence<DevState>	DevVarStateArray;
@@ -474,6 +476,7 @@ struct AttributeConfig_5
 	AttrDataFormat		data_format;
 	long				data_type;
 	boolean				memorized;
+	boolean				mem_init;
 	long				max_dim_x;
 	long				max_dim_y;
 	string 				description;
@@ -486,6 +489,7 @@ struct AttributeConfig_5
 	string    			max_value;
 	string				writable_attr_name;
 	DispLevel			level;
+	string				root_attr_name;
 	DevVarStringArray	enum_labels;
 	AttributeAlarm		att_alarm;
 	EventProperties		event_prop;
