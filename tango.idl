@@ -357,7 +357,7 @@ enum AttributeDataType
 	ATT_STATE,
 	DEVICE_STATE,
 	ATT_ENCODED,
-	NO_DATA
+	ATT_NO_DATA
 };
 
 union AttrValUnion switch (AttributeDataType)
@@ -390,7 +390,7 @@ case DEVICE_STATE:
 	DevState				dev_state_att;
 case ATT_ENCODED:
 	DevVarEncodedArray		encoded_att_value;
-case NO_DATA:
+case ATT_NO_DATA:
 	DevBoolean				union_no_data;
 };
 
