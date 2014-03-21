@@ -406,6 +406,19 @@ struct AttributeValue_4
 	DevErrorList		err_list;
 };
 
+struct AttributeValue_5
+{
+	AttrValUnion		value;
+	AttrQuality 		quality;
+	AttrDataFormat		data_format;
+	long				data_type;
+	TimeVal 			time;
+	string				name;
+	AttributeDim		r_dim;
+	AttributeDim		w_dim;
+	DevErrorList		err_list;
+};
+
 struct ChangeEventProp
 {
 	string				rel_change;
@@ -504,6 +517,7 @@ typedef sequence<AttributeConfig_5> AttributeConfigList_5;
 typedef sequence<AttributeValue> 	AttributeValueList;
 typedef sequence<AttributeValue_3> 	AttributeValueList_3;
 typedef sequence<AttributeValue_4>	AttributeValueList_4;
+typedef sequence<AttributeValue_5>	AttributeValueList_5;
 
 //-------------------------------------------------------------------------
 //
@@ -516,6 +530,20 @@ struct AttDataReady
 	string 	name;
 	long 	data_type;
 	long 	ctr;
+};
+
+
+//-------------------------------------------------------------------------
+//
+//		For device interface change event
+//
+//-------------------------------------------------------------------------
+
+struct DevIntrChange
+{
+	boolean					dev_started;
+	DevCmdInfoList_2 		cmds;
+	AttributeConfigList_5 	atts;
 };
 
 //-------------------------------------------------------------------------
@@ -587,6 +615,23 @@ typedef sequence<DevErrorList> DevErrorListList;
 struct DevAttrHistory_4
 {
 	string					name;
+	TimeValList				dates;
+	any						value;
+	AttrQualityList			quals;
+	EltInArrayList			quals_array;
+	AttributeDimList		r_dims;
+	EltInArrayList			r_dims_array;
+	AttributeDimList		w_dims;
+	EltInArrayList			w_dims_array;
+	DevErrorListList		errors;
+	EltInArrayList			errors_array;
+};
+
+struct DevAttrHistory_5
+{
+	string					name;
+	AttrDataFormat			data_format;
+	long					data_type;
 	TimeValList				dates;
 	any						value;
 	AttrQualityList			quals;
@@ -1005,6 +1050,36 @@ interface Device_5: Device_4
 @return nothing
  **/
 	void set_attribute_config_5(in AttributeConfigList_5 new_conf,in ClntIdent cl_ident) raises(DevFailed);
+
+/**
+ * Read a variable list of attributes from a device
+@param name list of attribute names to read
+@param source The data source. Used to specify if the command result must be
+read from the polling cache buffer or from the device itself
+@return list of attribute values read
+ **/
+	AttributeValueList_5 read_attributes_5(in DevVarStringArray names,
+					       in DevSource source,in ClntIdent cl_ident) raises(DevFailed);
+
+/**
+ * Write then Read device attribute(s)
+@param values List of attribute values to be written
+@param cl_ident The client identificator
+@return Attributes value read
+ **/
+	AttributeValueList_5 write_read_attributes_5(in AttributeValueList_4 values,in ClntIdent cl_ident)
+	raises(DevFailed,MultiDevFailed);
+
+/**
+ * Get attribute value history buffer.
+ * Return attribute value history for polled attribute
+@param name ascii string
+@param n The history depth
+@return attribute value history.
+ **/
+	DevAttrHistory_5 read_attribute_history_5(in string name,
+						      in long n) raises (DevFailed);
+
 };
 
 };  /* module tango */
