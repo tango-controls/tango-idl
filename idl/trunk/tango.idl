@@ -1067,7 +1067,7 @@ read from the polling cache buffer or from the device itself
 @param cl_ident The client identificator
 @return Attributes value read
  **/
-	AttributeValueList_5 write_read_attributes_5(in AttributeValueList_4 values,in ClntIdent cl_ident)
+	AttributeValueList_5 write_read_attributes_5(in AttributeValueList_4 values,in DevVarStringArray r_names,in ClntIdent cl_ident)
 	raises(DevFailed,MultiDevFailed);
 
 /**
