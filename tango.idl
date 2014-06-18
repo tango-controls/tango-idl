@@ -521,6 +521,39 @@ typedef sequence<AttributeValue_5>	AttributeValueList_5;
 
 //-------------------------------------------------------------------------
 //
+//		For pipe management
+//
+//-------------------------------------------------------------------------
+
+struct PipeConfig_5
+{
+	string				name;
+	string 				description;
+	string 				label;
+	DispLevel			level;
+	DevVarStringArray	extensions;
+};
+
+typedef sequence<PipeConfig_5> PipeConfigList_5;
+
+struct DevPipeDataElt_5
+{
+	AttrValUnion		value;
+	string				name;
+};
+
+typedef sequence<DevPipeDataElt_5>	DevPipeBlob_5;
+
+struct DevPipeData_5
+{
+	DevPipeBlob_5		data_blob;
+	TimeVal				time;
+	string				name;
+	DevErrorList		err_list;
+};
+
+//-------------------------------------------------------------------------
+//
 //		For data ready event
 //
 //-------------------------------------------------------------------------
@@ -1079,6 +1112,20 @@ read from the polling cache buffer or from the device itself
  **/
 	DevAttrHistory_5 read_attribute_history_5(in string name,
 						      in long n) raises (DevFailed);
+
+/**
+ * Read the configuration for a variable list of pipes from a device.
+@param name list of pipe names to read
+@return list of pipe configurations read
+ **/
+	PipeConfigList_5 get_pipe_config_5(in DevVarStringArray names) raises(DevFailed);
+
+/**
+ * Read a pipe from a device
+@param name pipe name
+@return pipe value
+ **/
+	DevPipeData_5 read_pipe_5(in string name,in ClntIdent cl_ident) raises(DevFailed);
 
 };
 
