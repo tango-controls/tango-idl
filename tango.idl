@@ -525,31 +525,47 @@ typedef sequence<AttributeValue_5>	AttributeValueList_5;
 //
 //-------------------------------------------------------------------------
 
-struct PipeConfig_5
+enum PipeWriteType
+{
+	PIPE_READ,
+	PIPE_READ_WRITE,
+    PIPE_WT_UNKNOWN
+};
+
+struct PipeConfig
 {
 	string				name;
 	string 				description;
 	string 				label;
 	DispLevel			level;
+	PipeWriteType		writable;
 	DevVarStringArray	extensions;
 };
 
-typedef sequence<PipeConfig_5> PipeConfigList_5;
+typedef sequence<PipeConfig> PipeConfigList;
 
-struct DevPipeDataElt_5
+struct DevPipeDataElt;
+typedef sequence<DevPipeDataElt>	DevVarPipeDataEltArray;
+
+struct DevPipeDataElt
 {
-	AttrValUnion		value;
-	string				name;
+	string					name;
+	AttrValUnion			value;
+	DevVarPipeDataEltArray	inner_blob;
+	string					inner_blob_name;
 };
 
-typedef sequence<DevPipeDataElt_5>	DevPipeBlob_5;
-
-struct DevPipeData_5
+struct DevPipeBlob
 {
-	DevPipeBlob_5		data_blob;
-	TimeVal				time;
-	string				name;
-	DevErrorList		err_list;
+	string 					name;
+	DevVarPipeDataEltArray	blob_data;
+};
+
+struct DevPipeData
+{
+	string					name;
+	TimeVal					time;
+	DevPipeBlob				data_blob;
 };
 
 //-------------------------------------------------------------------------
@@ -1115,17 +1131,34 @@ read from the polling cache buffer or from the device itself
 
 /**
  * Read the configuration for a variable list of pipes from a device.
-@param name list of pipe names to read
+@param names list of pipe names to read
 @return list of pipe configurations read
  **/
-	PipeConfigList_5 get_pipe_config_5(in DevVarStringArray names) raises(DevFailed);
+	PipeConfigList get_pipe_config_5(in DevVarStringArray names) raises(DevFailed);
 
 /**
  * Read a pipe from a device
 @param name pipe name
+@param cl_ident client identifier
 @return pipe value
  **/
-	DevPipeData_5 read_pipe_5(in string name,in ClntIdent cl_ident) raises(DevFailed);
+	DevPipeData read_pipe_5(in string name,in ClntIdent cl_ident) raises(DevFailed);
+
+/**
+ * write a pipe to a device
+@param value new pipe value
+@param cl_ident client identifier
+@return nothing
+ **/
+	void write_pipe_5(in DevPipeData value,in ClntIdent cl_ident) raises(DevFailed);
+
+/**
+ * write then read a pipe to a device
+@param value new pipe value
+@param cl_ident client identifier
+@return pipe value
+ **/
+	DevPipeData write_read_pipe_5(in DevPipeData value,in ClntIdent cl_ident) raises(DevFailed);
 
 };
 
