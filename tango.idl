@@ -1137,6 +1137,13 @@ read from the polling cache buffer or from the device itself
 	PipeConfigList get_pipe_config_5(in DevVarStringArray names) raises(DevFailed);
 
 /**
+ * set the configuration for a variable list of pipes from the device
+@param new_conf list of pipe configuration to be set
+@return nothing
+ **/
+	void set_pipe_config_5(in PipeConfigList new_conf,in ClntIdent cl_ident) raises(DevFailed);
+
+/**
  * Read a pipe from a device
 @param name pipe name
 @param cl_ident client identifier
