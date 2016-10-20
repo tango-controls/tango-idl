@@ -28,7 +28,8 @@
 
 module Tango
 {
-
+module backend
+{
 //-------------------------------------------------------------------------
 //
 // 		Basic types to transport command data
@@ -1168,5 +1169,5 @@ read from the polling cache buffer or from the device itself
 	DevPipeData write_read_pipe_5(in DevPipeData value,in ClntIdent cl_ident) raises(DevFailed);
 
 };
-
+}; /* module backend */
 };  /* module tango */
