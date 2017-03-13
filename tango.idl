@@ -232,12 +232,12 @@ struct DevCmdInfo_3
         string          out_type_desc;
 	DevVarStringArray in_enum_lables;
 	DevVarStringArray out_enum_labels;
-}
+};
 
 
 typedef sequence<DevCmdInfo> DevCmdInfoList;
 typedef sequence<DevCmdInfo_2> DevCmdInfoList_2;
-
+typedef sequence<DevCmdInfo_3> DevCmdInfoList_3;
 
 //-------------------------------------------------------------------------
 //
