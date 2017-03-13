@@ -1183,4 +1183,9 @@ read from the polling cache buffer or from the device itself
 
 };
 
+interface Device_6: Device_5
+{
+	DevCmdInfo_3 command_query_3(in string cmd_name) raises(DevFailed);
+};
+
 };  /* module tango */
