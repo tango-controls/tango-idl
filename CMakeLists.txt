@@ -17,3 +17,4 @@ configure_file(tangoidl.pc.cmake tangoidl.pc @ONLY)
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/tangoidl.pc"
 DESTINATION "${CMAKE_INSTALL_FULL_LIBDIR}/pkgconfig")
 
+#TODO deploy to bintray
