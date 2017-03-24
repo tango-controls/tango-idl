@@ -224,12 +224,12 @@ struct DevCmdInfo_2
 struct DevCmdInfo_3
 {
 	string          cmd_name;
-        DispLevel       level;
-        long            cmd_tag;
-        long            in_type;
-        long            out_type;
-        string          in_type_desc;
-        string          out_type_desc;
+    DispLevel       level;
+    long            cmd_tag;
+    long            in_type;
+    long            out_type;
+    string          in_type_desc;
+    string          out_type_desc;
 	DevVarStringArray in_enum_lables;
 	DevVarStringArray out_enum_labels;
 };
@@ -1181,11 +1181,6 @@ read from the polling cache buffer or from the device itself
  **/
 	DevPipeData write_read_pipe_5(in DevPipeData value,in ClntIdent cl_ident) raises(DevFailed);
 
+    DevCmdInfo_3 command_query_5(in string cmd_name) raises(DevFailed);
 };
-
-interface Device_6: Device_5
-{
-	DevCmdInfo_3 command_query_3(in string cmd_name) raises(DevFailed);
-};
-
 };  /* module tango */
