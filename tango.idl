@@ -1182,5 +1182,6 @@ read from the polling cache buffer or from the device itself
 	DevPipeData write_read_pipe_5(in DevPipeData value,in ClntIdent cl_ident) raises(DevFailed);
 
     DevCmdInfo_3 command_query_5(in string cmd_name) raises(DevFailed);
+    DevCmdInfoList_3 command_list_query_5() raises(DevFailed);
 };
 };  /* module tango */
