@@ -221,7 +221,7 @@ struct DevCmdInfo_2
 	string 		out_type_desc;
 };
 
-struct DevCmdInfo_3
+struct DevCmdInfo_6
 {
     string          cmd_name;
     DispLevel       level;
@@ -237,7 +237,7 @@ struct DevCmdInfo_3
 
 typedef sequence<DevCmdInfo> DevCmdInfoList;
 typedef sequence<DevCmdInfo_2> DevCmdInfoList_2;
-typedef sequence<DevCmdInfo_3> DevCmdInfoList_3;
+typedef sequence<DevCmdInfo_6> DevCmdInfoList_6;
 
 //-------------------------------------------------------------------------
 //
@@ -1189,7 +1189,7 @@ read from the polling cache buffer or from the device itself
 //-------------------------------------------------------------------------
 interface Device_6: Device_5
 {
-    DevCmdInfo_3 command_query_6(in string cmd_name) raises(DevFailed);
-    DevCmdInfoList_3 command_list_query_6() raises(DevFailed);
+    DevCmdInfo_6 command_query_6(in string cmd_name) raises(DevFailed);
+    DevCmdInfoList_6 command_list_query_6() raises(DevFailed);
 };
 };  /* module tango */
