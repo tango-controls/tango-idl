@@ -3,11 +3,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.tango-controls</groupId>
-    <artifactId>tango-idl</artifactId>
+    <artifactId>tango-idl-java</artifactId>
     <version>5</version>
     <packaging>jar</packaging>
 
-    <name>${project.artifactId}</name>
+    <properties>
+        <project.scm.name>tango-idl</project.scm.name>
+        <jacorb.ver>3.8</jacorb.ver>
+    </properties>
+
+    <name>${project.scm.name}</name>
     <description>TANGO interface defined in IDL and compiled with jacorb IDL compiler</description>
     <url>https://github.com/tango-controls/tango-idl</url>
     <inceptionYear>2004</inceptionYear>
@@ -63,9 +68,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git@github.com:tango-controls/${project.artifactId}</connection>
-        <developerConnection>scm:git:git@github.com:tango-controls/${project.artifactId}</developerConnection>
-        <url>https://github.com/tango-controls/${project.artifactId}</url>
+        <connection>scm:git:git@github.com:tango-controls/${project.scm.name}</connection>
+        <developerConnection>scm:git:git@github.com:tango-controls/${project.scm.name}</developerConnection>
+        <url>https://github.com/tango-controls/${project.scm.name}</url>
     </scm>
 
     <distributionManagement>
@@ -79,12 +84,12 @@
         <dependency>
             <groupId>org.jacorb</groupId>
             <artifactId>jacorb-omgapi</artifactId>
-            <version>3.8</version>
+            <version>${jacorb.ver}</version>
         </dependency>
         <dependency>
             <groupId>org.jacorb</groupId>
             <artifactId>jacorb-idl-compiler</artifactId>
-            <version>3.8</version>
+            <version>${jacorb.ver}</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
